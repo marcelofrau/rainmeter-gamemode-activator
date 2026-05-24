@@ -1,0 +1,18 @@
+#include <windows.h>
+#include "resource.h"
+
+IDI_APP      ICON "assets/icons/app_icon.ico"
+IDI_GAMEMODE ICON "assets/icons/gamemode.ico"
+IDI_SLEEP    ICON "assets/icons/sleep_mode.ico"
+
+IDD_ABOUT DIALOG 0, 0, 310, 112
+STYLE DS_MODALFRAME | DS_CENTER | WS_CAPTION | WS_SYSMENU
+CAPTION "About"
+FONT 9, "Segoe UI"
+BEGIN
+    ICON IDI_APP, -1, 15, 20, 32, 32
+    LTEXT "", IDC_ABOUT_NAME, 60, 14, 230, 12
+    LTEXT "", IDC_ABOUT_LIC, 60, 34, 230, 12
+    LTEXT "", IDC_ABOUT_VER, 60, 54, 230, 12
+    DEFPUSHBUTTON "OK", IDOK, 240, 84, 55, 18
+END

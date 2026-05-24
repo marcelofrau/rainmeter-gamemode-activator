@@ -1,0 +1,9 @@
+*.exe
+*.o
+*.log
+dist/
+obj/
+.vs/
+.vscode/
+*.user
+*.suo
