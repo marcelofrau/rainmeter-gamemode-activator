@@ -1,0 +1,10 @@
+# Process names that force game mode activation
+# One per line, case-insensitive.
+# Lines starting with # are ignored.
+#
+# Place this file next to the .exe to use it.
+# Example:
+# minecraft.exe
+# hytale.exe
+# pcsx2.exe
+# dolphin.exe
