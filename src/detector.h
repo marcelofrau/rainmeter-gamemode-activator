@@ -25,5 +25,6 @@ typedef struct {
 bool detect_game(GameInfo *info);
 
 void whitelist_load(const char *path);
+void blacklist_load(const char *path);
 
 #endif

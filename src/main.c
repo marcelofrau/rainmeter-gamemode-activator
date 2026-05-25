@@ -47,7 +47,12 @@ static const char *flags_to_string(int flags) {
 static void update_tray_icon(HWND hwnd, bool active) {
     (void)hwnd;
     nid.hIcon = LoadIconA(hInst, MAKEINTRESOURCEA(active ? IDI_GAMEMODE : IDI_SLEEP));
-    strcpy(nid.szTip, active ? "Game Mode Activator - Game Active" : "Game Mode Activator");
+    if (active && current_info.processName[0]) {
+        snprintf(nid.szTip, sizeof(nid.szTip),
+                 "Game Mode: %.100s", current_info.processName);
+    } else {
+        strcpy(nid.szTip, "Game Mode Activator");
+    }
     Shell_NotifyIconA(NIM_MODIFY, &nid);
 }
 
@@ -132,9 +137,14 @@ static LRESULT CALLBACK wnd_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
                 char whitelist_path[MAX_PATH * 2];
                 snprintf(whitelist_path, sizeof(whitelist_path), "%sgamemode_whitelist.txt", exe_path);
                 whitelist_load(whitelist_path);
+
+                char blacklist_path[MAX_PATH * 2];
+                snprintf(blacklist_path, sizeof(blacklist_path), "%sgamemode_blacklist.txt", exe_path);
+                blacklist_load(blacklist_path);
             } else {
                 strcpy(marker_path, "gamemode_active.exe");
                 whitelist_load("gamemode_whitelist.txt");
+                blacklist_load("gamemode_blacklist.txt");
             }
 
             ZeroMemory(&nid, sizeof(nid));

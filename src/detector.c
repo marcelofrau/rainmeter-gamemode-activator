@@ -89,6 +89,63 @@ static bool is_known_non_game(const char *name) {
     return false;
 }
 
+/* ── Blacklist ────────────────────────────────────────────────────────
+ * A plain-text file (gamemode_blacklist.txt) listing process names,
+ * one per line, that should never trigger game detection. */
+
+#define MAX_BLACKLIST_ENTRIES 64
+
+static char user_blacklist[MAX_BLACKLIST_ENTRIES][MAX_PROCESS_NAME];
+static int  user_blacklist_count = 0;
+
+void blacklist_load(const char *path) {
+    user_blacklist_count = 0;
+    FILE *f = fopen(path, "r");
+    if (!f) return;
+
+    char line[512];
+    while (fgets(line, sizeof(line), f) && user_blacklist_count < MAX_BLACKLIST_ENTRIES) {
+        char *p = line;
+        while (*p == ' ' || *p == '\t') p++;
+
+        if (*p == '#' || *p == '\n' || *p == '\r' || *p == '\0')
+            continue;
+
+        char *end = p + strlen(p) - 1;
+        while (end >= p && (*end == '\n' || *end == '\r' || *end == ' ' || *end == '\t'))
+            *end-- = '\0';
+
+        if (*p == '\0') continue;
+
+        char *dst = user_blacklist[user_blacklist_count];
+        int i = 0;
+        while (p[i] && i < MAX_PROCESS_NAME - 1) {
+            dst[i] = (char)tolower((unsigned char)p[i]);
+            i++;
+        }
+        dst[i] = '\0';
+        user_blacklist_count++;
+    }
+    fclose(f);
+}
+
+static bool is_user_blacklisted(const char *name) {
+    if (!name || !*name || user_blacklist_count == 0)
+        return false;
+    char lower[MAX_PROCESS_NAME];
+    int i = 0;
+    while (name[i] && i < MAX_PROCESS_NAME - 1) {
+        lower[i] = (char)tolower((unsigned char)name[i]);
+        i++;
+    }
+    lower[i] = '\0';
+    for (int j = 0; j < user_blacklist_count; j++) {
+        if (strcmp(lower, user_blacklist[j]) == 0)
+            return true;
+    }
+    return false;
+}
+
 /* ── Whitelist ────────────────────────────────────────────────────────
  * A plain-text file (gamemode_whitelist.txt) listing process names,
  * one per line, that should always trigger game detection. */
@@ -244,6 +301,9 @@ bool detect_game(GameInfo *info) {
     }
 
     if (is_known_non_game(info->processName))
+        return false;
+
+    if (is_user_blacklisted(info->processName))
         return false;
 
     if (fullscreen && no_caption)
