@@ -79,6 +79,57 @@ static bool is_known_non_game(const char *name) {
         "TextInputHost.exe", "RuntimeBroker.exe",
         "taskhostw.exe", "ApplicationFrameHost.exe",
         "SystemSettings.exe", "SettingsApp.exe",
+        "Rainmeter.exe",
+        "wallpaper64.exe", "wallpaper32.exe",
+        "discord.exe",
+        "spotify.exe",
+        "Steam.exe", "EpicGamesLauncher.exe", "Battle.net.exe",
+        "devenv.exe",
+        "idea64.exe", "rider64.exe", "clion64.exe",
+        "sublime_text.exe",
+        "notepad++.exe",
+        "PowerToys.exe",
+        NULL
+    };
+
+    for (int j = 0; list[j]; j++) {
+        if (strcmp(lower, list[j]) == 0)
+            return true;
+    }
+    return false;
+}
+
+static bool is_known_game(const char *name) {
+    if (!name || !*name) return false;
+    char lower[MAX_PROCESS_NAME];
+    int i = 0;
+    while (name[i] && i < (int)sizeof(lower) - 1) {
+        lower[i] = (char)tolower((unsigned char)name[i]);
+        i++;
+    }
+    lower[i] = '\0';
+
+    static const char *list[] = {
+        /* Java / sandbox */
+        "javaw.exe", "java.exe",
+        /* Hytale */
+        "hytale.exe",
+        /* Roblox */
+        "RobloxPlayerBeta.exe",
+        /* osu! */
+        "osu!.exe",
+        /* 2D / indie */
+        "Terraria.exe", "Stardew Valley.exe",
+        "factorio.exe", "RimWorldWin64.exe",
+        /* Paradox */
+        "ck3.exe", "eu4.exe", "hoi4.exe", "stellaris.exe",
+        /* Emulators */
+        "pcsx2.exe", "dolphin.exe", "rpcs3.exe",
+        "yuzu.exe", "citra.exe",
+        /* Valve */
+        "cs2.exe", "dota2.exe",
+        /* Riot */
+        "League of Legends.exe", "VALORANT-Win64-Shipping.exe",
         NULL
     };
 
@@ -299,6 +350,9 @@ bool detect_game(GameInfo *info) {
                 return true;
         }
     }
+
+    if (is_known_game(info->processName))
+        return true;
 
     if (is_known_non_game(info->processName))
         return false;

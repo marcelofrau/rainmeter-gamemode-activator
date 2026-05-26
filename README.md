@@ -87,6 +87,19 @@ Right-click the tray icon for **About** and **Quit**.
 [2026-05-24 12:30:45] << Terminated marker process
 ```
 
+## Customizing the process list
+
+The built-in ignore list (`is_known_non_game()` in `src/detector.c`) covers
+common non-game processes (browsers, terminals, system components, Rainmeter).
+To add more entries without rebuilding, place one of these files next to the
+`.exe`:
+
+- **`gamemode_blacklist.txt`** — process names that should never trigger game mode
+- **`gamemode_whitelist.txt`** — process names that should always trigger game mode
+
+One entry per line, case-insensitive. Lines starting with `#` are ignored.
+Whitelist takes priority over the blacklist.
+
 ## Rainmeter integration
 
 Use `Plugin=Process` to check if `gamemode_active.exe` is running:

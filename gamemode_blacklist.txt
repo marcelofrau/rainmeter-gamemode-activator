@@ -1,8 +1,7 @@
-# Process names that should never trigger game mode
-# One per line, case-insensitive.
-# Lines starting with # are ignored.
+# Optional blacklist — place this file next to the .exe to use it.
+# Process names listed here will never trigger game mode.
+# One per line, case-insensitive. Lines starting with # are ignored.
 #
-# Place this file next to the .exe to use it.
 # Example:
 # wallpaper64.exe
 # wallpaper32.exe

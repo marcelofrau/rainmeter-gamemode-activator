@@ -1,8 +1,7 @@
-# Process names that force game mode activation
-# One per line, case-insensitive.
-# Lines starting with # are ignored.
+# Optional whitelist — place this file next to the .exe to use it.
+# Process names listed here will always trigger game mode.
+# One per line, case-insensitive. Lines starting with # are ignored.
 #
-# Place this file next to the .exe to use it.
 # Example:
 # minecraft.exe
 # hytale.exe
