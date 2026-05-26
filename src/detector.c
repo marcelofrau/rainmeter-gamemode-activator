@@ -110,8 +110,6 @@ static bool is_known_game(const char *name) {
     lower[i] = '\0';
 
     static const char *list[] = {
-        /* Java / sandbox */
-        "javaw.exe", "java.exe",
         /* Hytale */
         "hytale.exe",
         /* Roblox */
