@@ -70,25 +70,27 @@ static bool is_known_non_game(const char *name) {
     static const char *list[] = {
         "firefox.exe", "chrome.exe", "msedge.exe", "opera.exe", "brave.exe",
         "code.exe", "codep.exe",
-        "WindowsTerminal.exe", "cmd.exe", "powershell.exe", "pwsh.exe",
+        "windowsterminal.exe", "cmd.exe", "powershell.exe", "pwsh.exe",
         "explorer.exe", "mstsc.exe",
-        "Teams.exe", "zoom.exe", "slack.exe",
-        "SearchHost.exe", "SearchApp.exe",
-        "StartMenuExperienceHost.exe",
-        "ShellExperienceHost.exe", "sihost.exe",
-        "TextInputHost.exe", "RuntimeBroker.exe",
-        "taskhostw.exe", "ApplicationFrameHost.exe",
-        "SystemSettings.exe", "SettingsApp.exe",
-        "Rainmeter.exe",
+        "teams.exe", "zoom.exe", "slack.exe",
+        "searchhost.exe", "searchapp.exe",
+        "startmenuexperiencehost.exe",
+        "shellexperiencehost.exe", "sihost.exe",
+        "textinputhost.exe", "runtimebroker.exe",
+        "taskhostw.exe", "applicationframehost.exe",
+        "systemsettings.exe", "settingsapp.exe",
+        "rainmeter.exe",
         "wallpaper64.exe", "wallpaper32.exe",
         "discord.exe",
         "spotify.exe",
-        "Steam.exe", "EpicGamesLauncher.exe", "Battle.net.exe",
+        "steam.exe", "epicgameslauncher.exe", "battle.net.exe",
         "devenv.exe",
         "idea64.exe", "rider64.exe", "clion64.exe",
         "sublime_text.exe",
         "notepad++.exe",
-        "PowerToys.exe",
+        "powertoys.exe",
+        "xnviewmp.exe",
+        "onecommander.exe",
         NULL
     };
 
@@ -110,24 +112,18 @@ static bool is_known_game(const char *name) {
     lower[i] = '\0';
 
     static const char *list[] = {
-        /* Hytale */
         "hytale.exe",
-        /* Roblox */
-        "RobloxPlayerBeta.exe",
-        /* osu! */
+        "robloxplayerbeta.exe",
         "osu!.exe",
-        /* 2D / indie */
-        "Terraria.exe", "Stardew Valley.exe",
-        "factorio.exe", "RimWorldWin64.exe",
-        /* Paradox */
+        "terraria.exe", "stardew valley.exe",
+        "factorio.exe", "rimworldwin64.exe",
         "ck3.exe", "eu4.exe", "hoi4.exe", "stellaris.exe",
-        /* Emulators */
         "pcsx2.exe", "dolphin.exe", "rpcs3.exe",
         "yuzu.exe", "citra.exe",
-        /* Valve */
         "cs2.exe", "dota2.exe",
-        /* Riot */
-        "League of Legends.exe", "VALORANT-Win64-Shipping.exe",
+        "league of legends.exe", "valorant-win64-shipping.exe",
+        "retrobat.exe",
+        "emulationstation.exe",
         NULL
     };
 
